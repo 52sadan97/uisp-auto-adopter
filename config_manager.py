@@ -32,6 +32,18 @@ DEFAULT_CONFIG = {
 def load_config():
     """Load configuration from config.json. Creates default if not found."""
     if not os.path.exists(CONFIG_FILE):
+        # Try to load from example config if available
+        example_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), "config.example.json")
+        if os.path.exists(example_file):
+            try:
+                with open(example_file, 'r', encoding='utf-8') as f:
+                    example_config = json.load(f)
+                save_config(example_config)
+                return example_config
+            except Exception as e:
+                logging.error(f"Failed to load/copy example config: {e}")
+
+        # Fallback to hardcoded default
         save_config(DEFAULT_CONFIG)
         return copy.deepcopy(DEFAULT_CONFIG)
 
