@@ -24,11 +24,12 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 
 from config_manager import (
     load_config, get_credentials, get_uisp_string,
-    get_network_ranges, get_settings, get_setting
+    get_network_ranges, get_settings, get_setting,
+    get_data_path
 )
 
 # ================= VERSION =================
-__version__ = "2.1.1"
+__version__ = "2.1.2"
 
 
 # ================= CONFIGURATION (from config.json) =================
@@ -54,9 +55,9 @@ def _get_network_ranges():
 # These are read at import time but also refreshed when functions run.
 _initial = load_config()
 _settings = _initial.get("settings", {})
-LOG_FILENAME = _settings.get("log_filename", "uisp_scan_results.log")
-HISTORY_FILENAME = _settings.get("history_filename", "basarili_cihazlar.txt")
-STATS_FILENAME = _settings.get("stats_filename", "scan_stats.json")
+LOG_FILENAME = get_data_path(_settings.get("log_filename", "uisp_scan_results.log"))
+HISTORY_FILENAME = get_data_path(_settings.get("history_filename", "basarili_cihazlar.txt"))
+STATS_FILENAME = get_data_path(_settings.get("stats_filename", "scan_stats.json"))
 CREDENTIALS_LIST = get_credentials()
 UISP_STRING = get_uisp_string()
 NETWORK_RANGES = get_network_ranges()
@@ -73,9 +74,9 @@ def reload_config():
 
     cfg = load_config()
     s = cfg.get("settings", {})
-    LOG_FILENAME = s.get("log_filename", "uisp_scan_results.log")
-    HISTORY_FILENAME = s.get("history_filename", "basarili_cihazlar.txt")
-    STATS_FILENAME = s.get("stats_filename", "scan_stats.json")
+    LOG_FILENAME = get_data_path(s.get("log_filename", "uisp_scan_results.log"))
+    HISTORY_FILENAME = get_data_path(s.get("history_filename", "basarili_cihazlar.txt"))
+    STATS_FILENAME = get_data_path(s.get("stats_filename", "scan_stats.json"))
     CREDENTIALS_LIST = get_credentials()
     UISP_STRING = get_uisp_string()
     NETWORK_RANGES = get_network_ranges()

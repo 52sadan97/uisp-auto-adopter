@@ -11,7 +11,15 @@ import copy
 import logging
 from datetime import datetime
 
-CONFIG_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "config.json")
+# Determine data directory (default to current directory for backward compat)
+DATA_DIR = os.getenv("DATA_DIR", os.path.dirname(os.path.abspath(__file__)))
+CONFIG_FILE = os.path.join(DATA_DIR, "config.json")
+
+# Helper to resolve paths relative to DATA_DIR
+def get_data_path(filename):
+    if os.path.isabs(filename):
+        return filename
+    return os.path.join(DATA_DIR, filename)
 
 DEFAULT_CONFIG = {
     "uisp_connection_string": "",
@@ -31,9 +39,17 @@ DEFAULT_CONFIG = {
 
 def load_config():
     """Load configuration from config.json. Creates default if not found."""
+    # Ensure data dir exists
+    if not os.path.exists(DATA_DIR):
+        try:
+            os.makedirs(DATA_DIR, exist_ok=True)
+        except Exception as e:
+            logging.error(f"Failed to create data dir {DATA_DIR}: {e}")
+
     if not os.path.exists(CONFIG_FILE):
-        # Try to load from example config if available
-        example_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), "config.example.json")
+        # Try to load from example config if available (in code directory)
+        code_dir = os.path.dirname(os.path.abspath(__file__))
+        example_file = os.path.join(code_dir, "config.example.json")
         if os.path.exists(example_file):
             try:
                 with open(example_file, 'r', encoding='utf-8') as f:

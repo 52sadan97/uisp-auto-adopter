@@ -4,6 +4,15 @@ FROM python:3.9-slim
 # Set the working directory in the container
 WORKDIR /app
 
+# Define environment variable for data persistence
+ENV DATA_DIR=/data
+
+# Create the data directory
+RUN mkdir -p /data
+
+# Volume configuration to persist data
+VOLUME ["/data"]
+
 # Copy the current directory contents into the container at /app
 COPY . /app
 

@@ -4,16 +4,14 @@ services:
   uisp-bot:
     container_name: uisp-bot
     image: ghcr.io/52sadan97/uisp-auto-adopter:main
-    # VEYA yerel image kullanmak istersen:
+    # If building locally:
     # build: .
     restart: unless-stopped
     ports:
       - "5050:5050"
     volumes:
-      # Ayar ve veri dosyalarini kalici yap
-      - ./config.json:/app/config.json
-      - ./basarili_cihazlar.txt:/app/basarili_cihazlar.txt
-      - ./uisp_scan_results.log:/app/uisp_scan_results.log
-      - ./scan_stats.json:/app/scan_stats.json
+      # Mount a local 'data' directory to the container's '/data' directory
+      - ./data:/data
     environment:
       - PYTHONUNBUFFERED=1
+      - DATA_DIR=/data

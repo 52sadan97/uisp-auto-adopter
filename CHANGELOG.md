@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.1.2] - 2026-02-10
+
+### Fixed
+- **Docker Integration**: Fixed a critical issue where configuration files (like `config.json`) were being created as directories by Docker volume mounts.
+- **Data Persistence**: Introduced `DATA_DIR` environment variable support. Docker now mounts a single `data` volume instead of individual files, ensuring proper file creation and persistence.
+- **Configuration Loading**: Enhanced config manager to look for `config.json` in `DATA_DIR` if specified, falling back to the application directory.
+
 ## [2.1.1] - 2026-02-10
 
 ### Fixed

@@ -16,7 +16,8 @@ from flask import Flask, render_template, jsonify, request
 
 from config_manager import (
     load_config, save_config, validate_config,
-    validate_network_range, validate_ip, get_settings
+    validate_network_range, validate_ip, get_settings,
+    get_data_path
 )
 
 # Import scanner functions (with reload support)
@@ -87,8 +88,8 @@ def api_stats():
     """Return current scan statistics."""
     config = load_config()
     settings = config.get("settings", {})
-    stats_file = settings.get("stats_filename", "scan_stats.json")
-    history_file = settings.get("history_filename", "basarili_cihazlar.txt")
+    stats_file = get_data_path(settings.get("stats_filename", "scan_stats.json"))
+    history_file = get_data_path(settings.get("history_filename", "basarili_cihazlar.txt"))
 
     stats = {}
     if os.path.exists(stats_file):
@@ -236,7 +237,7 @@ def api_adopt_single():
 def api_logs():
     """Return recent log entries from the log file."""
     config = load_config()
-    log_file = config.get("settings", {}).get("log_filename", "uisp_scan_results.log")
+    log_file = get_data_path(config.get("settings", {}).get("log_filename", "uisp_scan_results.log"))
     lines = []
     if os.path.exists(log_file):
         try:
