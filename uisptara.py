@@ -28,7 +28,7 @@ from config_manager import (
 )
 
 # ================= VERSION =================
-__version__ = "2.1.0"
+__version__ = "2.1.1"
 
 
 # ================= CONFIGURATION (from config.json) =================
