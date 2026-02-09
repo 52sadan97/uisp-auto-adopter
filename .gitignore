@@ -1,0 +1,41 @@
+# ============================================================
+# UISP Auto-Adopter — .gitignore
+# ============================================================
+
+# Environment & Configuration (NEVER commit - contains secrets!)
+.env
+config.json
+config.json.backup
+
+# Scan data (contains live IP addresses)
+adopted_devices.txt
+basarili_cihazlar.txt
+*.log
+scan_stats.json
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Virtual environment
+venv/
+.venv/
+env/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini

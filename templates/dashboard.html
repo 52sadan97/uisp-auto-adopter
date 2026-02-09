@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="UISP Auto-Adopter Dashboard — Monitor and manage Ubiquiti device adoption">
+    <title>📡 UISP Auto-Adopter Dashboard</title>
+    <link rel="stylesheet" href="/static/css/dashboard.css">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📡</text></svg>">
+</head>
+
+<body>
+
+    <div class="app-container">
+
+        <!-- ═══════════════ HEADER ═══════════════ -->
+        <header class="header">
+            <div class="header-left">
+                <div class="header-logo">📡</div>
+                <div>
+                    <h1 class="header-title">UISP Auto-Adopter</h1>
+                    <div class="header-subtitle">Ubiquiti Cihaz Yönetim Paneli</div>
+                </div>
+            </div>
+            <div class="header-right">
+                <div id="config-status" class="status-badge not-configured">
+                    <span class="status-dot red"></span> Yükleniyor...
+                </div>
+                <span class="version-tag">v{{ version }}</span>
+            </div>
+        </header>
+
+        <!-- ═══════════════ NAVIGATION ═══════════════ -->
+        <nav class="nav-tabs">
+            <button class="nav-tab active" data-tab="overview">
+                <span class="tab-icon">📊</span>
+                <span>Genel Bakış</span>
+            </button>
+            <button class="nav-tab" data-tab="scan">
+                <span class="tab-icon">🔎</span>
+                <span>Tarama</span>
+            </button>
+            <button class="nav-tab" data-tab="devices">
+                <span class="tab-icon">📡</span>
+                <span>Cihazlar</span>
+            </button>
+            <button class="nav-tab" data-tab="subnets">
+                <span class="tab-icon">🌐</span>
+                <span>Alt Ağlar</span>
+            </button>
+            <button class="nav-tab" data-tab="config">
+                <span class="tab-icon">⚙️</span>
+                <span>Yapılandırma</span>
+            </button>
+            <button class="nav-tab" data-tab="logs">
+                <span class="tab-icon">📋</span>
+                <span>Loglar</span>
+            </button>
+        </nav>
+
+        <!-- ═══════════════ TAB: OVERVIEW ═══════════════ -->
+        <div id="tab-overview" class="tab-content active">
+
+            <!-- Stats Cards -->
+            <div class="stats-grid">
+                <div class="stat-card blue">
+                    <div class="stat-icon">📡</div>
+                    <div class="stat-value" id="stat-total-devices">0</div>
+                    <div class="stat-label">Toplam Bağlı Cihaz</div>
+                </div>
+                <div class="stat-card purple">
+                    <div class="stat-icon">🌐</div>
+                    <div class="stat-value" id="stat-networks">0</div>
+                    <div class="stat-label">Ağ Bloğu</div>
+                </div>
+                <div class="stat-card green">
+                    <div class="stat-icon">✅</div>
+                    <div class="stat-value" id="stat-last-adopted">0</div>
+                    <div class="stat-label">Son Tarama — Başarılı</div>
+                </div>
+                <div class="stat-card orange">
+                    <div class="stat-icon">❌</div>
+                    <div class="stat-value" id="stat-last-failed">0</div>
+                    <div class="stat-label">Son Tarama — Başarısız</div>
+                </div>
+            </div>
+
+            <!-- Last Scan Info -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <span class="icon">📈</span> Son Tarama Bilgileri
+                    </div>
+                    <button class="btn btn-sm" onclick="loadStats()">🔄 Yenile</button>
+                </div>
+                <div class="card-body">
+                    <div class="config-grid" id="last-scan-info">
+                        <div class="empty-state">
+                            <div class="empty-icon">📊</div>
+                            <div class="empty-desc">Henüz tarama yapılmadı</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <span class="icon">⚡</span> Hızlı İşlemler
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+                        <button class="btn btn-primary" onclick="switchTab('scan')">
+                            🚀 Tarama Başlat
+                        </button>
+                        <button class="btn btn-success" onclick="switchTab('devices')">
+                            📡 Cihaz Listesi
+                        </button>
+                        <button class="btn" onclick="switchTab('subnets')">
+                            🌐 Alt Ağ Dağılımı
+                        </button>
+                        <button class="btn" onclick="switchTab('logs')">
+                            📋 Logları Görüntüle
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══════════════ TAB: SCAN ═══════════════ -->
+        <div id="tab-scan" class="tab-content">
+
+            <!-- Scan Controls -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <span class="icon">🚀</span> Ağ Taraması
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="scan-controls">
+                        <button id="btn-start-scan" class="btn btn-primary" onclick="startScan()">
+                            🚀 Taramayı Başlat
+                        </button>
+                        <button id="btn-stop-scan" class="btn btn-danger" onclick="stopScan()" disabled>
+                            🛑 Durdur
+                        </button>
+                        <div class="scan-options">
+                            <div class="checkbox-wrapper">
+                                <input type="checkbox" id="dry-run-checkbox">
+                                <label for="dry-run-checkbox">🧪 Deneme Modu (Dry-Run)</label>
+                            </div>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <label for="threads-input"
+                                style="font-size: 0.85rem; color: var(--text-secondary);">Thread:</label>
+                            <input type="number" id="threads-input" value="10" min="1" max="50" class="ip-input"
+                                style="width: 80px; padding: 8px 12px;">
+                        </div>
+                    </div>
+
+                    <!-- Running Indicator -->
+                    <div id="scan-running-indicator" class="scan-running-indicator hidden">
+                        <div class="spinner"></div>
+                        <span>Tarama devam ediyor...</span>
+                    </div>
+
+                    <!-- Progress -->
+                    <div class="progress-container">
+                        <div class="progress-bar-wrapper">
+                            <div id="scan-progress-bar" class="progress-bar" style="width: 0%"></div>
+                        </div>
+                        <div class="progress-info">
+                            <span id="scan-progress-percent" class="progress-percent">0%</span>
+                            <span id="scan-progress-adopted"></span>
+                            <span id="scan-progress-elapsed">0s</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Live Log -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <span class="icon">📋</span> Canlı Log
+                    </div>
+                </div>
+                <div class="card-body" style="padding: 0;">
+                    <div id="live-log" class="log-container">
+                        <div class="empty-state">
+                            <div class="empty-icon">📋</div>
+                            <div class="empty-desc">Tarama başlatıldığında loglar burada görünecek</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Single Device Adopt -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <span class="icon">🎯</span> Tek Cihaz Bağla
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="single-adopt-form">
+                        <input type="text" id="single-ip-input" class="ip-input"
+                            placeholder="IP adresi girin (örn: 10.0.0.50)"
+                            onkeypress="if(event.key==='Enter')adoptSingleDevice()">
+                        <div class="checkbox-wrapper">
+                            <input type="checkbox" id="single-dry-run">
+                            <label for="single-dry-run">🧪 Deneme</label>
+                        </div>
+                        <button class="btn btn-success" onclick="adoptSingleDevice()">
+                            ⚡ Bağla
+                        </button>
+                    </div>
+                    <div id="single-adopt-result" class="hidden" style="margin-top: 16px;"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══════════════ TAB: DEVICES ═══════════════ -->
+        <div id="tab-devices" class="tab-content">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <span class="icon">📡</span> Bağlı Cihazlar
+                    </div>
+                    <div class="card-actions">
+                        <span id="device-count" class="device-count">0 cihaz</span>
+                        <button class="btn btn-sm" onclick="loadDevices()">🔄 Yenile</button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <!-- Filters -->
+                    <div class="table-controls">
+                        <div class="search-wrapper">
+                            <span class="search-icon">🔍</span>
+                            <input type="text" id="device-search" class="search-input"
+                                placeholder="IP adresi ile ara..." oninput="debouncedFilter()">
+                        </div>
+                        <select id="subnet-filter" class="filter-select" onchange="filterDevices()">
+                            <option value="">Tüm Alt Ağlar</option>
+                        </select>
+                    </div>
+
+                    <!-- Device Table -->
+                    <div class="table-wrapper">
+                        <table class="device-table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 50px;">#</th>
+                                    <th>IP Adresi</th>
+                                    <th>Alt Ağ</th>
+                                    <th>Durum</th>
+                                </tr>
+                            </thead>
+                            <tbody id="device-table-body">
+                                <tr>
+                                    <td colspan="4" class="text-center"
+                                        style="padding: 60px; color: var(--text-muted);">
+                                        Yükleniyor...
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══════════════ TAB: SUBNETS ═══════════════ -->
+        <div id="tab-subnets" class="tab-content">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <span class="icon">🌐</span> Alt Ağ Dağılımı
+                    </div>
+                    <button class="btn btn-sm" onclick="loadSubnets()">🔄 Yenile</button>
+                </div>
+                <div class="card-body">
+                    <div id="subnet-grid" class="subnet-grid">
+                        <div class="empty-state">
+                            <div class="empty-icon">🌐</div>
+                            <div class="empty-desc">Yükleniyor...</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══════════════ TAB: CONFIG ═══════════════ -->
+        <div id="tab-config" class="tab-content">
+
+            <!-- UISP Connection String -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <span class="icon">🔗</span> UISP Bağlantı Dizesi
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="single-adopt-form">
+                        <input type="text" id="uisp-string-input" class="ip-input" style="font-size: 0.8rem;"
+                            placeholder="wss://server:8443+Token+allowSelfSignedCertificate">
+                        <button class="btn btn-primary" onclick="saveUispString()">
+                            💾 Kaydet
+                        </button>
+                    </div>
+                    <p style="margin-top: 10px; font-size: 0.75rem; color: var(--text-muted);">
+                        UISP Server → Devices → Add Device bölümünden alabilirsiniz.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Network Ranges -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <span class="icon">🌐</span> Ağ Aralıkları
+                    </div>
+                    <span id="network-count-badge" class="device-count">0 ağ</span>
+                </div>
+                <div class="card-body">
+                    <!-- Add Network Form -->
+                    <div class="single-adopt-form" style="margin-bottom: 16px;">
+                        <input type="text" id="new-network-input" class="ip-input"
+                            placeholder="Yeni ağ aralığı (örn: 10.0.0.0/24)"
+                            onkeypress="if(event.key==='Enter')addNetwork()">
+                        <button class="btn btn-success" onclick="addNetwork()">
+                            ➕ Ekle
+                        </button>
+                    </div>
+                    <!-- Network List -->
+                    <div id="network-list-container"></div>
+                </div>
+            </div>
+
+            <!-- Credentials -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <span class="icon">🔑</span> SSH Kimlik Bilgileri
+                    </div>
+                    <span id="cred-count-badge" class="device-count">0 kimlik</span>
+                </div>
+                <div class="card-body">
+                    <!-- Add Credential Form -->
+                    <div class="single-adopt-form" style="margin-bottom: 16px;">
+                        <input type="text" id="new-cred-username" class="ip-input" style="max-width: 200px;"
+                            placeholder="Kullanıcı adı">
+                        <input type="password" id="new-cred-password" class="ip-input" style="max-width: 200px;"
+                            placeholder="Şifre" onkeypress="if(event.key==='Enter')addCredential()">
+                        <button class="btn btn-success" onclick="addCredential()">
+                            ➕ Ekle
+                        </button>
+                    </div>
+                    <!-- Credential List -->
+                    <div id="credential-list-container"></div>
+                </div>
+            </div>
+
+            <!-- Scanning Settings -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <span class="icon">⚙️</span> Tarama Ayarları
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="config-grid">
+                        <div class="config-item" style="flex-direction: column; align-items: stretch; gap: 8px;">
+                            <label class="config-label">Eşzamanlı Thread Sayısı</label>
+                            <input type="number" id="setting-max-threads" class="ip-input" min="1" max="100"
+                                style="padding: 8px 12px;">
+                        </div>
+                        <div class="config-item" style="flex-direction: column; align-items: stretch; gap: 8px;">
+                            <label class="config-label">SSH Timeout (saniye)</label>
+                            <input type="number" id="setting-ssh-timeout" class="ip-input" min="1" max="60" step="0.5"
+                                style="padding: 8px 12px;">
+                        </div>
+                        <div class="config-item" style="flex-direction: column; align-items: stretch; gap: 8px;">
+                            <label class="config-label">Port Tarama Timeout (saniye)</label>
+                            <input type="number" id="setting-port-timeout" class="ip-input" min="0.1" max="10"
+                                step="0.1" style="padding: 8px 12px;">
+                        </div>
+                        <div class="config-item" style="flex-direction: column; align-items: stretch; gap: 8px;">
+                            <label class="config-label">Dashboard Port</label>
+                            <input type="number" id="setting-dashboard-port" class="ip-input" min="1024" max="65535"
+                                style="padding: 8px 12px;">
+                        </div>
+                    </div>
+                    <div style="margin-top: 16px; display: flex; gap: 12px;">
+                        <button class="btn btn-primary" onclick="saveSettings()">
+                            💾 Ayarları Kaydet
+                        </button>
+                        <span style="font-size: 0.75rem; color: var(--text-muted); display: flex; align-items: center;">
+                            ⚡ Ayarlar anında uygulanır — yeniden başlatma gerekmez!
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Config File Info -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <span class="icon">ℹ️</span> Yapılandırma Bilgisi
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.8;">
+                        <p>Tüm ayarlar <code
+                                style="background: var(--bg-glass); padding: 2px 8px; border-radius: 4px; font-family: var(--font-mono);">config.json</code>
+                            dosyasında saklanır.</p>
+                        <p>Değişiklikler anında uygulanır — sunucuyu yeniden başlatmanıza gerek yoktur.</p>
+                        <p style="color: var(--text-muted); margin-top: 8px;">
+                            📁 Her kaydetme işleminde otomatik yedek oluşturulur (<code>config.json.backup</code>)
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══════════════ TAB: LOGS ═══════════════ -->
+        <div id="tab-logs" class="tab-content">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <span class="icon">📋</span> Log Dosyası
+                    </div>
+                    <div class="card-actions">
+                        <button class="btn btn-sm" onclick="loadLogs()">🔄 Yenile</button>
+                    </div>
+                </div>
+                <div class="card-body" style="padding: 0;">
+                    <div id="file-log" class="log-container" style="max-height: 600px;">
+                        <div class="empty-state">
+                            <div class="empty-icon">📋</div>
+                            <div class="empty-desc">Yükleniyor...</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- JavaScript -->
+    <script src="/static/js/dashboard.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,26 @@
+{
+    "uisp_connection_string": "wss://YOUR_UISP_SERVER:8443+YOUR_TOKEN+allowSelfSignedCertificate",
+    "credentials": [
+        {
+            "username": "admin",
+            "password": "your_password_1"
+        },
+        {
+            "username": "admin",
+            "password": "your_password_2"
+        }
+    ],
+    "network_ranges": [
+        "10.0.0.0/24",
+        "192.168.1.0/24"
+    ],
+    "settings": {
+        "max_threads": 10,
+        "ssh_timeout": 5,
+        "port_scan_timeout": 0.3,
+        "log_filename": "uisp_scan_results.log",
+        "history_filename": "adopted_devices.txt",
+        "stats_filename": "scan_stats.json",
+        "dashboard_port": 5050
+    }
+}
