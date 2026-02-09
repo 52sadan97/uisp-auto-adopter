@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  uisp-bot:
+    container_name: uisp-bot
+    image: ghcr.io/52sadan97/uisp-auto-adopter:main
+    # VEYA yerel image kullanmak istersen:
+    # build: .
+    restart: unless-stopped
+    ports:
+      - "5050:5050"
+    volumes:
+      # Ayar ve veri dosyalarini kalici yap
+      - ./config.json:/app/config.json
+      - ./basarili_cihazlar.txt:/app/basarili_cihazlar.txt
+      - ./uisp_scan_results.log:/app/uisp_scan_results.log
+      - ./scan_stats.json:/app/scan_stats.json
+    environment:
+      - PYTHONUNBUFFERED=1
