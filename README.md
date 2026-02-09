@@ -124,7 +124,39 @@ Then open **http://localhost:5050** in your browser.
 
 ---
 
-## 📖 How It Works
+## � Docker Deployment
+
+The easiest way to run UISP Auto-Adopter is using Docker Compose.
+
+### 1. Run with Docker Compose
+
+```bash
+# Clone the repository
+git clone https://github.com/52sadan97/uisp-auto-adopter.git
+cd uisp-auto-adopter
+
+# Start the container
+docker-compose up -d
+```
+
+- Dashboard will be available at: **http://localhost:5050**
+- Configuration and logs are stored in the `./data` directory.
+
+### 2. Run with Docker CLI
+
+If you prefer `docker run`:
+
+```bash
+docker run -d \
+  -p 5050:5050 \
+  -v $(pwd)/data:/data \
+  --name uisp-bot \
+  ghcr.io/52sadan97/uisp-auto-adopter:latest
+```
+
+---
+
+## �📖 How It Works
 
 ```
 ┌─────────────────────────────────────────────────────────┐
@@ -214,7 +246,7 @@ Example `scan_stats.json`:
 - [ ] 📧 **Notifications** — Email/Telegram/Slack alerts on scan completion
 - [ ] 📋 **UISP API Integration** — Verify adoption status via UISP REST API
 - [ ] 🗺️ **Network Map** — Visual map of adopted devices by subnet
-- [ ] 🐳 **Docker Support** — Containerized deployment with scheduled scans
+- [x] 🐳 **Docker Support** — Containerized deployment with scheduled scans
 - [ ] ⏰ **Scheduled Scans** — Cron-compatible scheduling with configurable intervals
 - [ ] 📈 **Historical Trends** — Track adoption rates over time
 - [ ] 🔐 **SSH Key Auth** — Support for key-based authentication
@@ -285,6 +317,23 @@ python uisptara.py
 # Deneme modu (değişiklik yapmaz)
 python uisptara.py --dry-run
 ```
+
+### 🐳 Docker Kurulumu
+
+En kolay kurulum yöntemidir.
+
+```bash
+# Repository'yi klonlayın
+git clone https://github.com/52sadan97/uisp-auto-adopter.git
+cd uisp-auto-adopter
+
+# Docker'ı başlatın
+docker-compose up -d
+```
+
+- Web Paneli: **http://localhost:5050**
+- Ayarlar ve loglar `./data` klasöründe saklanır.
+
 
 ### Nasıl Çalışır?
 
