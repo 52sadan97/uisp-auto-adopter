@@ -72,6 +72,9 @@ web_handler = WebLogHandler()
 web_handler.setFormatter(logging.Formatter('%(message)s'))
 logging.getLogger().addHandler(web_handler)
 
+# Suppress Werkzeug (Flask) access logs to keep dashboard clean
+logging.getLogger('werkzeug').setLevel(logging.ERROR)
+
 
 # ================= ROUTES =================
 
