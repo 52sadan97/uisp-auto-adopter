@@ -2,7 +2,7 @@
   <img src="https://img.shields.io/badge/UISP-Auto%20Adopter-blueviolet?style=for-the-badge&logo=ubiquiti&logoColor=white" alt="UISP Auto-Adopter">
   <br>
   <img src="https://img.shields.io/badge/python-3.8+-blue?style=flat-square&logo=python&logoColor=white" alt="Python 3.8+">
-  <img src="https://img.shields.io/badge/license-MIT-green?style=flat-square" alt="License: MIT">
+  <img src="https://img.shields.io/badge/license-Proprietary-red?style=flat-square" alt="License: Proprietary">
   <img src="https://img.shields.io/badge/platform-linux%20%7C%20windows%20%7C%20macos-lightgrey?style=flat-square" alt="Platform">
 </p>
 
@@ -235,7 +235,7 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## 📄 License
 
-This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
+This software is proprietary and owned by **Ertuğrul SADAN**. See the [LICENSE](LICENSE) file for full terms in English and Turkish.
 
 ---
 
@@ -297,5 +297,5 @@ python uisptara.py --dry-run
 ---
 
 <p align="center">
-  Made with ❤️ by <strong>SdnNET</strong>
+  Made with ❤️ by <strong>Ertuğrul SADAN</strong> — <a href="https://github.com/52sadan97">@52sadan97</a>
 </p>

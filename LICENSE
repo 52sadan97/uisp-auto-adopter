@@ -1,21 +1,141 @@
-MIT License
+PROPRIETARY SOFTWARE LICENSE / ÖZEL YAZILIM LİSANSI
+=====================================================
 
-Copyright (c) 2026 SdnNET
+Copyright (c) 2026 Ertuğrul SADAN. All Rights Reserved.
+Telif Hakkı (c) 2026 Ertuğrul SADAN. Tüm Hakları Saklıdır.
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+================================================================================
+                            🇬🇧 ENGLISH
+================================================================================
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+PROPRIETARY LICENSE AGREEMENT
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+1. OWNERSHIP
+   All intellectual property rights, including but not limited to copyrights,
+   patents, trade secrets, and trademarks related to this software, are and
+   shall remain the exclusive property of Ertuğrul SADAN (hereinafter referred
+   to as "the Author").
+
+2. GRANT OF USE
+   The Author grants you a limited, non-exclusive, non-transferable,
+   revocable license to USE the compiled Docker image of this software solely
+   for your internal business operations. This license does NOT include the
+   right to access, view, modify, or distribute the source code.
+
+3. RESTRICTIONS
+   You may NOT:
+   a) Copy, reproduce, or duplicate this software or any part thereof;
+   b) Modify, adapt, translate, reverse engineer, decompile, or disassemble
+      the software;
+   c) Distribute, sublicense, lease, rent, loan, or otherwise transfer the
+      software to any third party;
+   d) Use the software for any purpose other than its intended function;
+   e) Remove, alter, or obscure any proprietary notices, labels, or marks
+      on the software;
+   f) Create derivative works based on this software;
+   g) Use the software to compete with the Author's business or products.
+
+4. CONFIDENTIALITY
+   You acknowledge that the software contains trade secrets and proprietary
+   information of the Author. You agree to maintain the confidentiality of
+   the software and not disclose it to any third party without the prior
+   written consent of the Author.
+
+5. TERMINATION
+   This license is effective until terminated. It will terminate automatically
+   without notice if you fail to comply with any term of this agreement. Upon
+   termination, you must destroy all copies of the software in your possession.
+
+6. DISCLAIMER OF WARRANTIES
+   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+   IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+   FITNESS FOR A PARTICULAR PURPOSE, AND NONINFRINGEMENT. IN NO EVENT SHALL
+   THE AUTHOR BE LIABLE FOR ANY CLAIM, DAMAGES, OR OTHER LIABILITY, WHETHER
+   IN AN ACTION OF CONTRACT, TORT, OR OTHERWISE, ARISING FROM, OUT OF, OR IN
+   CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+7. LIMITATION OF LIABILITY
+   IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY INDIRECT, INCIDENTAL,
+   SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+   TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+   PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+   LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+   NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+   SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+8. GOVERNING LAW
+   This agreement shall be governed by and construed in accordance with the
+   laws of the Republic of Türkiye, without regard to its conflict of law
+   provisions.
+
+================================================================================
+                            🇹🇷 TÜRKÇE
+================================================================================
+
+ÖZEL YAZILIM LİSANS SÖZLEŞMESİ
+
+1. MÜLKİYET
+   Bu yazılıma ilişkin telif hakları, patentler, ticari sırlar ve ticari
+   markalar dahil ancak bunlarla sınırlı olmaksızın tüm fikri mülkiyet
+   hakları, Ertuğrul SADAN'a (bundan böyle "Yazar" olarak anılacaktır)
+   aittir ve ait olmaya devam edecektir.
+
+2. KULLANIM İZNİ
+   Yazar, size bu yazılımın derlenmiş Docker imajını yalnızca kurum içi
+   iş operasyonlarınız için KULLANMANIZ amacıyla sınırlı, münhasır olmayan,
+   devredilemez ve geri alınabilir bir lisans vermektedir. Bu lisans, kaynak
+   koduna erişme, görüntüleme, değiştirme veya dağıtma hakkını İÇERMEZ.
+
+3. KISITLAMALAR
+   Aşağıdakileri YAPAMAZSINIZ:
+   a) Bu yazılımı veya herhangi bir bölümünü kopyalamak, çoğaltmak veya
+      çoğaltma amacıyla kullanmak;
+   b) Yazılımı değiştirmek, uyarlamak, çevirmek, tersine mühendislik yapmak,
+      kaynak koduna dönüştürmek veya çözmek;
+   c) Yazılımı herhangi bir üçüncü tarafa dağıtmak, alt lisans vermek,
+      kiralamak, ödünç vermek veya devretmek;
+   d) Yazılımı amaçlanan işlevi dışında herhangi bir amaçla kullanmak;
+   e) Yazılım üzerindeki herhangi bir mülkiyet bildirimini, etiketi veya
+      işareti kaldırmak, değiştirmek veya gizlemek;
+   f) Bu yazılıma dayalı türev eserler oluşturmak;
+   g) Yazılımı, Yazarın işi veya ürünleri ile rekabet etmek amacıyla
+      kullanmak.
+
+4. GİZLİLİK
+   Yazılımın, Yazara ait ticari sırlar ve özel bilgiler içerdiğini kabul
+   edersiniz. Yazılımın gizliliğini korumayı ve Yazarın önceden yazılı
+   onayı olmadan herhangi bir üçüncü tarafa ifşa etmemeyi kabul edersiniz.
+
+5. FESİH
+   Bu lisans, feshedilene kadar geçerlidir. Bu sözleşmenin herhangi bir
+   şartına uymamanız halinde önceden bildirimde bulunmaksızın otomatik
+   olarak feshedilecektir. Fesih halinde, elinizdeki yazılımın tüm
+   kopyalarını imha etmelisiniz.
+
+6. GARANTİ REDDİ
+   YAZILIM, TİCARETE ELVERİŞLİLİK, BELİRLİ BİR AMACA UYGUNLUK VE İHLAL
+   ETMEME GARANTİLERİ DAHİL ANCAK BUNLARLA SINIRLI OLMAKSIZIN, AÇIK VEYA
+   ZIMNİ HİÇBİR GARANTİ OLMADAN "OLDUĞU GİBİ" SUNULMAKTADIR. HİÇBİR
+   DURUMDA YAZAR, YAZILIMIN KULLANIMINDAN VEYA YAZILIMLA BAĞLANTILI OLARAK
+   ORTAYA ÇIKAN HERHANGİ BİR TALEP, HASAR VEYA DİĞER YÜKÜMLÜLÜKLERDEN
+   SORUMLU TUTULAMAZ.
+
+7. SORUMLULUK SINIRLAMASI
+   HİÇBİR DURUMDA YAZAR, DOLAYLI, ARIZİ, ÖZEL, ÖRNEK TEŞKİL EDEN VEYA
+   SONUÇ OLARAK ORTAYA ÇIKAN ZARARLARDAN (İKAME MAL VEYA HİZMET TEMİNİ;
+   KULLANIM, VERİ VEYA KAR KAYBI; VEYA İŞ KESİNTİSİ DAHİL ANCAK BUNLARLA
+   SINIRLI OLMAKSIZIN) SORUMLU TUTULAMAZ.
+
+8. UYGULANACAK HUKUK
+   Bu sözleşme, kanunlar ihtilafı hükümleri dikkate alınmaksızın, Türkiye
+   Cumhuriyeti yasalarına tabi olacak ve bu yasalara göre yorumlanacaktır.
+
+================================================================================
+
+For questions regarding licensing, please contact:
+Lisanslama ile ilgili sorularınız için lütfen iletişime geçin:
+
+  Ertuğrul SADAN
+  GitHub: @52sadan97
+
+================================================================================
